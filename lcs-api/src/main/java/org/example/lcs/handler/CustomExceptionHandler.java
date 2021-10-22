@@ -11,6 +11,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.persistence.EntityNotFoundException;
+
 @ControllerAdvice
 @Slf4j
 public class CustomExceptionHandler {
@@ -31,6 +33,12 @@ public class CustomExceptionHandler {
     protected ResponseEntity<BaseResponse> handleMethodArgumentNoValidException(MethodArgumentNotValidException exception) {
         log.info(exception.getMessage(), exception);
         return new ResponseEntity<BaseResponse>(failedResponseInvalidArgument(exception), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = EntityNotFoundException.class)
+    protected ResponseEntity<BaseResponse> handleEntityNotFoundException(EntityNotFoundException exception) {
+        log.info(exception.getMessage(), exception);
+        return new ResponseEntity<BaseResponse>(failedResponse(exception), new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     private BaseResponse failedResponse(Exception exception) {

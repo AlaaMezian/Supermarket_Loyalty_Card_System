@@ -10,6 +10,7 @@ import org.example.lcs.common.enums.ResponseStatus;
 @NoArgsConstructor
 @Data
 @ToString
+
 public class BaseResponse {
 
     protected ResponseStatus status;

@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -30,5 +32,11 @@ public class UserAccount extends TimestampedEntity implements Serializable {
 
     @Column(name="ID_CARD_NUMBER", unique = true)
     private String idCardNumber;
+
+    @OneToMany(mappedBy = "userAccount")
+    private List<Transaction> transactionList = new ArrayList<>();
+
+    @Column(name="TOTAL_POINTS_AMOUNT")
+    private float totalPointAmount;
 
 }
