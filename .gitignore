@@ -1,0 +1,19 @@
+.DS_Store
+.classpath
+.project
+.settings/*
+/target/
+*.settings
+*.mvn
+mvnw
+mvnw.cmd
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+
+### IntelliJ IDEA ###
+.idea/*
+.idea/
+*.iws
+*.iml
+*.ipr

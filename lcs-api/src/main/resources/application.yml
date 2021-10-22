@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: super-market-loyalty-system
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: lcs-data-base
+    password: password
+    driverClassName: org.h2.Driver
+    jpa:
+      spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+server:
+  port: 8080
+  servlet:
+    context-path: /lcs-service
+
