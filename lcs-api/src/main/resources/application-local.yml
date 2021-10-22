@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: test
+    driverClassName: org.h2.Driver
+    initialize-schema: "always"
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+    h2:
+      console:
+        enabled: true
+

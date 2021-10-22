@@ -1,4 +1,4 @@
-package org.example.repository.entity;
+package org.example.lcs.repository.entity;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "CASHIER_DETAILS")
 @Data
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)

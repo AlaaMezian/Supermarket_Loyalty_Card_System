@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>Super_Market_Loyalty_System</artifactId>
-        <groupId>org.example</groupId>
+        <groupId>org.example.lcs</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -24,20 +24,35 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
+
         <dependency>
-            <groupId>org.example</groupId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.example.lcs</groupId>
             <artifactId>lcs-common</artifactId>
             <version>${lcs.common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example.lcs</groupId>
+            <artifactId>lcs-service</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>${swagger.version}</version>
         </dependency>
+
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
@@ -59,7 +74,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.maven.version}</version>
                 <configuration>
-                    <mainClass>org.example.api.LoyaltyCardSystemApplication</mainClass>
+                    <mainClass>org.example.lcs.LoyaltyCardSystemApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

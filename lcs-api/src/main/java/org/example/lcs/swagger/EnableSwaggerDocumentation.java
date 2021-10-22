@@ -1,4 +1,4 @@
-package org.example.api.swagger;
+package org.example.lcs.swagger;
 
 import org.springframework.context.annotation.Import;
 

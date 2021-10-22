@@ -1,4 +1,4 @@
-package org.example.repository.entity;
+package org.example.lcs.repository.entity;
 
 import lombok.*;
 
