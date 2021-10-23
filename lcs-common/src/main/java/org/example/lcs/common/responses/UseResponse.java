@@ -7,9 +7,10 @@ import lombok.Data;
 @Builder
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserCreatedResponse extends BaseResponse{
+public class UseResponse extends BaseResponse{
     private String surName;
     private String name;
     private String mobileNumber;
     private String idCardNumber;
+    private String totalPointsAmount;
 }

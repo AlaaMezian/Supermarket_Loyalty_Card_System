@@ -41,28 +41,12 @@ public class PurchaseRequestHandler {
         }
         try {
             Transaction transaction = doTransaction(purchaseRequest, cashier);
-            return PurchaseResponse.builder()
-                    .pointsEarned(String.valueOf(transaction.getPointsAmount()))
-                    .message("Transaction Created Successfully")
-                    .status(ResponseStatus.SUCCESS)
-                    .build();
+            return buildPurchaseResponse(transaction);
 
         } catch (DataAccessException e) {
             log.error("Failed to create Transaction", e);
             throw new DataBaseOperationException("failed to create transaction");
         }
-    }
-
-    private UserAccount findUserAccount(PurchaseRequest purchaseRequest) {
-        if (purchaseRequest.getIdCardNumber() != null && !purchaseRequest.getIdCardNumber().isEmpty()) {
-            return userAccountJPARepository.findByIdCardNumber(purchaseRequest.getIdCardNumber()).orElseThrow(() -> new EntityNotFoundException("user Account does not exist"));
-        } else {
-            return userAccountJPARepository.findByMobile(purchaseRequest.getMobileNumber()).orElseThrow(() -> new EntityNotFoundException("user Account does not exist"));
-        }
-    }
-
-    private float calculatePointsEarned(BigDecimal purchaseAmount) {
-        return purchaseAmount.multiply(new BigDecimal(100)).multiply(new BigDecimal(0.002)).floatValue();
     }
 
     private Transaction doTransaction(PurchaseRequest purchaseRequest, Cashier cashier) {
@@ -78,5 +62,28 @@ public class PurchaseRequestHandler {
         userAccount.setTotalPointAmount(userAccount.getTotalPointAmount() + transaction.getPointsAmount());
         userAccountJPARepository.save(userAccount);
         return transaction;
+    }
+
+    private UserAccount findUserAccount(PurchaseRequest purchaseRequest) {
+        if (purchaseRequest.getIdCardNumber() != null && !purchaseRequest.getIdCardNumber().isEmpty()) {
+            return userAccountJPARepository.findByIdCardNumber(purchaseRequest.getIdCardNumber()).orElseThrow(() -> new EntityNotFoundException("user Account does not exist"));
+        } else {
+            return userAccountJPARepository.findByMobile(purchaseRequest.getMobileNumber()).orElseThrow(() -> new EntityNotFoundException("user Account does not exist"));
+        }
+    }
+
+
+    private float calculatePointsEarned(BigDecimal purchaseAmount) {
+        return purchaseAmount.multiply(new BigDecimal(100)).multiply(new BigDecimal(0.002)).floatValue();
+    }
+
+
+    private PurchaseResponse buildPurchaseResponse(Transaction transaction) {
+        return PurchaseResponse.builder()
+                .pointsEarned(String.valueOf(transaction.getPointsAmount()))
+                .transactionDate(transaction.getCreatedDate())
+                .message("Transaction Created Successfully")
+                .status(ResponseStatus.SUCCESS)
+                .build();
     }
 }
