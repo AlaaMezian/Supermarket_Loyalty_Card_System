@@ -1,5 +1,5 @@
 package org.example.lcs.service.operation;
 
-public interface NoRequestBodyOperation<RES> extends Operation<RES, RES> {
+public interface NoRequestBodyOperation<RES> {
     RES execute();
 }

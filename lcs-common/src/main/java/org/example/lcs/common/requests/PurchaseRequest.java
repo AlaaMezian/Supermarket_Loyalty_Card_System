@@ -9,11 +9,9 @@ import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
-public class PurchaseRequest {
-    private String mobileNumber;
-    private String idCardNumber;
+public class PurchaseRequest extends OperationRequest {
+
     @Min(value = 1, message = "purchase amount cant be less that one euro")
     private BigDecimal purchaseAmount;
-    private Long cashierId;
 
 }

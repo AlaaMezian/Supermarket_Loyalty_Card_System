@@ -13,8 +13,10 @@ public class UnClaimedUserAccountOperation implements NoRequestBodyOperation<UnC
 
     @Autowired
     private UnClaimedUserAccountHandler unClaimedUserAccountHandler;
+
     @Override
     public UnClaimedUsersAccounts execute() {
+        log.info("Start Executing get un claimed user account");
         return unClaimedUserAccountHandler.getUnClaimedPositiveUserAccounts();
     }
 

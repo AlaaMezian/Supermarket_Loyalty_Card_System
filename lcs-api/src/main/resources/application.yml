@@ -1,6 +1,11 @@
 spring:
   application:
     name: super-market-loyalty-system
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      generate-ddl: true
 server:
   port: 8080
   servlet:

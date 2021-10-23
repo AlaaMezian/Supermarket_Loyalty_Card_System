@@ -36,12 +36,6 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-
-        <dependency>
-            <groupId>org.example.lcs</groupId>
-            <artifactId>lcs-common</artifactId>
-            <version>${lcs.common.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.example.lcs</groupId>
             <artifactId>lcs-service</artifactId>

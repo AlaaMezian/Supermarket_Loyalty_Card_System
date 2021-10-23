@@ -6,18 +6,17 @@ import org.example.lcs.common.enums.ResponseStatus;
 
 import java.util.Date;
 
-
 @Data
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 @NoArgsConstructor
-public class PurchaseResponse extends OperationResponse {
-    private String pointsEarned;
+public class RedeemResponse extends OperationResponse {
+    private String pointsRedeemed;
 
     @Builder
-    public PurchaseResponse(ResponseStatus status, String message, String pointsEarned, Date transactionDate) {
+    public RedeemResponse(ResponseStatus status, String message, String pointsRedeemed, Date transactionDate) {
         super(status, message, transactionDate);
-        this.pointsEarned = pointsEarned;
+        this.pointsRedeemed = pointsRedeemed;
     }
 }

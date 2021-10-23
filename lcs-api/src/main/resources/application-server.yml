@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: ${datasource_url}
+    username: ${datasource_username}
+    password: ${datasource_password}
+    driverClassName: ${datasource_driver_class_name}
+    initialize-schema: ${datasource_initialize_schema}
+  jpa:
+    spring.jpa.database-platform: ${jpa_delicate}
+
+    h2:
+      console:
+        enabled: ${h2_console_enabled}
+

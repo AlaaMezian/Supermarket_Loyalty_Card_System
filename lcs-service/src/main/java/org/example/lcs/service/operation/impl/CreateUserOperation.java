@@ -17,6 +17,7 @@ public class CreateUserOperation implements Operation<CreateUserAccountRequest, 
 
     @Override
     public UseResponse execute(CreateUserAccountRequest request) {
+        log.info("Start Executing Create User Operation");
         return createUserAccountHandler.createUser(request);
     }
 }

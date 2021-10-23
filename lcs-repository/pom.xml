@@ -19,17 +19,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>lcs-common</artifactId>
-            <version>${lcs.common.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example.lcs</groupId>
-            <artifactId>lcs-common</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.example.lcs</groupId>
             <artifactId>lcs-common</artifactId>
             <version>1.0.0</version>

@@ -22,11 +22,7 @@
             <artifactId>lcs-repository</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.example.lcs</groupId>
-            <artifactId>lcs-common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+
     </dependencies>
 
 </project>

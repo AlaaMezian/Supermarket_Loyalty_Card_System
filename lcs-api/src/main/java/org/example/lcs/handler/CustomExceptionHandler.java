@@ -20,7 +20,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler(value = DataBaseOperationException.class)
     protected ResponseEntity<BaseResponse> exception(DataBaseOperationException exception) {
         log.info(exception.getMessage(), exception);
-        return new ResponseEntity<BaseResponse>(failedResponse(exception), new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<BaseResponse>(failedResponse(exception), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = Exception.class)
@@ -38,7 +38,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler(value = EntityNotFoundException.class)
     protected ResponseEntity<BaseResponse> handleEntityNotFoundException(EntityNotFoundException exception) {
         log.info(exception.getMessage(), exception);
-        return new ResponseEntity<BaseResponse>(failedResponse(exception), new HttpHeaders(), HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<BaseResponse>(failedResponse(exception), new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     private BaseResponse failedResponse(Exception exception) {
