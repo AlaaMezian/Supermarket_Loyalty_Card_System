@@ -1,6 +1,9 @@
 package org.example.lcs.common.responses;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.example.lcs.common.enums.ResponseStatus;
 
 import java.util.Date;

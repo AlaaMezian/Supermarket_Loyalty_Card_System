@@ -3,6 +3,7 @@ package org.example.lcs.service.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.example.lcs.common.enums.ResponseStatus;
 import org.example.lcs.common.enums.TransactionEntryType;
+import org.example.lcs.common.exceptions.InSufficienttBalanceException;
 import org.example.lcs.common.requests.RedeemRequest;
 import org.example.lcs.common.responses.RedeemResponse;
 import org.example.lcs.repository.entity.Cashier;
@@ -25,12 +26,16 @@ public class RedeemOperationHandler extends OperationHandler<RedeemRequest, Rede
 
     @Override
     protected Transaction doTransaction(RedeemRequest request, Cashier cashier, UserAccount userAccount) {
-        //check if user have points first
 
         Integer pointsToRedeem = request.getPointToRedeem();
         if (request.getNumberOfWaterPackets() > 0) {
             pointsToRedeem = (request.getNumberOfWaterPackets() * 100) + request.getPointToRedeem();
         }
+
+        if (userAccount.getTotalPointAmount() < pointsToRedeem) {
+            throw new InSufficienttBalanceException("Unable to redeem points Insufficient balance");
+        }
+
         Transaction transaction = Transaction.builder()
                 .userAccount(userAccount)
                 .cashier(cashier)

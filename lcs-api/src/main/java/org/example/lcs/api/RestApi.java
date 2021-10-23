@@ -5,11 +5,13 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import org.example.lcs.common.exceptions.DataBaseOperationException;
 import org.example.lcs.common.requests.CreateUserAccountRequest;
 import org.example.lcs.common.requests.PurchaseRequest;
 import org.example.lcs.common.requests.RedeemRequest;
-import org.example.lcs.common.responses.*;
+import org.example.lcs.common.responses.PurchaseResponse;
+import org.example.lcs.common.responses.RedeemResponse;
+import org.example.lcs.common.responses.UnClaimedUsersAccounts;
+import org.example.lcs.common.responses.UseResponse;
 import org.example.lcs.service.operation.impl.CreateUserOperation;
 import org.example.lcs.service.operation.impl.PurchaseOperation;
 import org.example.lcs.service.operation.impl.RedeemOperation;
@@ -21,8 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import sun.net.www.protocol.http.HttpURLConnection;
 
 import javax.validation.Valid;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -64,6 +64,7 @@ public class RestApi {
             value = {
                     @ApiResponse(code = HttpURLConnection.HTTP_OK, message = "Success", response = UseResponse.class),
                     @ApiResponse(code = HttpURLConnection.HTTP_INTERNAL_ERROR, message = "failed to save user account")
+
             })
     UseResponse createUser(@RequestBody @Valid CreateUserAccountRequest createUserAccountRequest) {
         return createUserOperation.execute(createUserAccountRequest);
@@ -77,6 +78,8 @@ public class RestApi {
             value = {
                     @ApiResponse(code = HttpURLConnection.HTTP_OK, message = "Success", response = RedeemResponse.class),
                     @ApiResponse(code = HttpURLConnection.HTTP_BAD_REQUEST, message = "user provide invalid redeemValue"),
+                    @ApiResponse(code = HttpURLConnection.HTTP_NOT_FOUND, message = "cashier with the id number not found in the system or user Account does not exist"),
+                    @ApiResponse(code = HttpURLConnection.HTTP_INTERNAL_ERROR, message = "failed to create transaction")
             })
     RedeemResponse redeemPoints(@RequestBody @Valid RedeemRequest redeemRequest) {
         return redeemOperation.execute(redeemRequest);

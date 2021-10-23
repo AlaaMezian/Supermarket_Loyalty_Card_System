@@ -3,6 +3,7 @@ package org.example.lcs.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.example.lcs.common.enums.ResponseStatus;
 import org.example.lcs.common.exceptions.DataBaseOperationException;
+import org.example.lcs.common.exceptions.InSufficienttBalanceException;
 import org.example.lcs.common.responses.BaseResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,12 @@ public class CustomExceptionHandler {
     protected ResponseEntity<BaseResponse> handleEntityNotFoundException(EntityNotFoundException exception) {
         log.info(exception.getMessage(), exception);
         return new ResponseEntity<BaseResponse>(failedResponse(exception), new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = InSufficienttBalanceException.class)
+    protected ResponseEntity<BaseResponse> handleInSufficientBalance(InSufficienttBalanceException exception) {
+        log.info(exception.getMessage(), exception);
+        return new ResponseEntity<BaseResponse>(failedResponse(exception), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
     private BaseResponse failedResponse(Exception exception) {
