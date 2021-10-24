@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.lcs.common.enums.ResponseStatus;
 import org.example.lcs.common.exceptions.DataBaseOperationException;
 import org.example.lcs.common.exceptions.InSufficienttBalanceException;
+import org.example.lcs.common.exceptions.InvalidPurchaseAmount;
 import org.example.lcs.common.responses.BaseResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,13 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(value = InSufficienttBalanceException.class)
     protected ResponseEntity<BaseResponse> handleInSufficientBalance(InSufficienttBalanceException exception) {
+        log.info(exception.getMessage(), exception);
+        return new ResponseEntity<BaseResponse>(failedResponse(exception), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+
+    @ExceptionHandler(value = InvalidPurchaseAmount.class)
+    protected ResponseEntity<BaseResponse> handleInSufficientBalance(InvalidPurchaseAmount exception) {
         log.info(exception.getMessage(), exception);
         return new ResponseEntity<BaseResponse>(failedResponse(exception), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }

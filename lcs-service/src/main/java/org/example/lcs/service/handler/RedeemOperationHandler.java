@@ -3,7 +3,9 @@ package org.example.lcs.service.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.example.lcs.common.enums.ResponseStatus;
 import org.example.lcs.common.enums.TransactionEntryType;
+import org.example.lcs.common.exceptions.DataBaseOperationException;
 import org.example.lcs.common.exceptions.InSufficienttBalanceException;
+import org.example.lcs.common.requests.PurchaseRequest;
 import org.example.lcs.common.requests.RedeemRequest;
 import org.example.lcs.common.responses.RedeemResponse;
 import org.example.lcs.repository.entity.Cashier;
@@ -12,6 +14,7 @@ import org.example.lcs.repository.entity.UserAccount;
 import org.example.lcs.repository.jpa.TransactionsJPARepository;
 import org.example.lcs.repository.jpa.UserAccountJPARepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,18 +38,17 @@ public class RedeemOperationHandler extends OperationHandler<RedeemRequest, Rede
         if (userAccount.getTotalPointAmount() < pointsToRedeem) {
             throw new InSufficienttBalanceException("Unable to redeem points Insufficient balance");
         }
-
-        Transaction transaction = Transaction.builder()
-                .userAccount(userAccount)
-                .cashier(cashier)
-                .transactionEntryType(TransactionEntryType.REDEEM)
-                .pointsAmount(pointsToRedeem)
-                .build();
-        transaction = transactionsJPARepository.save(transaction);
-        userAccount.getTransactionList().add(transaction);
-        userAccount.setTotalPointAmount(userAccount.getTotalPointAmount() - transaction.getPointsAmount());
-        userAccountJPARepository.save(userAccount);
-        return transaction;
+        try {
+            Transaction transaction = buildTransaction(pointsToRedeem, cashier, userAccount);
+            transaction = transactionsJPARepository.save(transaction);
+            userAccount.getTransactionList().add(transaction);
+            userAccount.setTotalPointAmount(userAccount.getTotalPointAmount() - transaction.getPointsAmount());
+            userAccountJPARepository.save(userAccount);
+            return transaction;
+        } catch (DataAccessException e) {
+            log.error("Failed to create Transaction", e);
+            throw new DataBaseOperationException("failed to create transaction");
+        }
     }
 
     @Override
@@ -56,6 +58,15 @@ public class RedeemOperationHandler extends OperationHandler<RedeemRequest, Rede
                 .transactionDate(transaction.getCreatedDate())
                 .message("Points Redeemed Successfully")
                 .status(ResponseStatus.SUCCESS)
+                .build();
+    }
+
+    private Transaction buildTransaction(Integer pointsToRedeem, Cashier cashier, UserAccount userAccount) {
+        return Transaction.builder()
+                .userAccount(userAccount)
+                .cashier(cashier)
+                .transactionEntryType(TransactionEntryType.REDEEM)
+                .pointsAmount(pointsToRedeem)
                 .build();
     }
 }

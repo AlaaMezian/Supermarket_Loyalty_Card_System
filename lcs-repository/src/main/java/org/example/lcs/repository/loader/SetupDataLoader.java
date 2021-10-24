@@ -55,6 +55,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
                     .build();
             userAccounts.add(userAccount);
         }
+
+        UserAccount userAccount = UserAccount.builder()
+                .name("test" + 60)
+                .mobile("07962315974")
+                .surName("test " + 60)
+                .idCardNumber(UUID.randomUUID().toString())
+                .build();
+        userAccounts.add(userAccount);
+    
         userAccountJPARepository.saveAll(userAccounts);
     }
 }
