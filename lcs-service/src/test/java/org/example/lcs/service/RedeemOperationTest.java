@@ -77,13 +77,13 @@ public class RedeemOperationTest {
     }
 
     @Test(expected = InSufficienttBalanceException.class)
-    public void givenInvalidPointsToRedeem_whenRedeemCalled_thenInSufficientBalanceExceptionThrown(){
+    public void givenInvalidPointsToRedeem_whenRedeemCalled_thenInSufficientBalanceExceptionThrown() {
         redeemRequest.setPointToRedeem(200);
         redeemPurchaseHandler.handle(redeemRequest);
     }
 
     @Test(expected = InSufficienttBalanceException.class)
-    public void givenInvalidWaterBottleNumberWithInSufficientBalance_whenRedeemCalled_thenInSufficientBalanceExceptionThrown(){
+    public void givenInvalidWaterBottleNumberWithInSufficientBalance_whenRedeemCalled_thenInSufficientBalanceExceptionThrown() {
         redeemRequest.setNumberOfWaterPackets(2);
         redeemPurchaseHandler.handle(redeemRequest);
     }
@@ -111,7 +111,7 @@ public class RedeemOperationTest {
                 .thenReturn(java.util.Optional.of(buildCashier()));
         Mockito.when(userAccountJPARepository.existsByMobileOrIdCardNumber("07962315974", null))
                 .thenReturn(true);
-        Mockito.when(userAccountJPARepository.findByMobile("07962315974"))
+        Mockito.when(userAccountJPARepository.findByMobileOrIdCardNumber("07962315974", null))
                 .thenReturn(java.util.Optional.of(buildUserAccount()));
 
         Mockito.when(transactionsJPARepository.save(Mockito.any(Transaction.class)))

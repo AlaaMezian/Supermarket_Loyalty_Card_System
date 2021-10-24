@@ -60,7 +60,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
                 .name("test" + 60)
                 .mobile("07962315974")
                 .surName("test " + 60)
-                .idCardNumber(UUID.randomUUID().toString())
+                .idCardNumber("test-id-card")
                 .build();
         userAccounts.add(userAccount);
     

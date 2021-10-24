@@ -26,3 +26,27 @@ to view data base schema please use: http://localhost:8080/lcs-service/h2-consol
 
 swagger:
 http://localhost:8080/lcs-service/swagger-ui.html#/
+
+## Curl Examples 
+
+- purchase request
+``` 
+curl -X POST "http://localhost:8080/lcs-service/lcs/v1/earn" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"cashierId\": 1, \"mobileNumber\": \"07962315974\", \"purchaseAmount\": 1000}"
+```
+
+- redeem request with redeem points
+```
+curl -X POST "http://localhost:8080/lcs-service/lcs/v1/redeem" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"cashierId\": 1, \"idCardNumber\": \"test-id-card\", \"mobileNumber\": \"string\", \"pointToRedeem\": 200}"
+```
+
+- redeem request with water packets
+```
+curl -X POST "http://localhost:8080/lcs-service/lcs/v1/redeem" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"cashierId\": 1, \"mobileNumber\": \"07962315974\", \"numberOfWaterPackets\": 1}"
+```
+
+- get unClaimedAccounts 
+
+```
+curl -X GET "http://localhost:8080/lcs-service/lcs/v1/users/unclaimed-accounts" -H "accept: application/json"
+```
+

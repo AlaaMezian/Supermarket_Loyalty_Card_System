@@ -39,11 +39,7 @@ public abstract class OperationHandler<REQUEST extends OperationRequest, Respons
     protected abstract Response buildResponse(Transaction transaction);
 
     private UserAccount findUserAccount(REQUEST request) {
-        if (request.getIdCardNumber() != null && !request.getIdCardNumber().isEmpty()) {
-            return userAccountJPARepository.findByIdCardNumber(request.getIdCardNumber()).orElseThrow(() -> new EntityNotFoundException("user Account does not exist"));
-        } else {
-            return userAccountJPARepository.findByMobile(request.getMobileNumber()).orElseThrow(() -> new EntityNotFoundException("user Account does not exist"));
-        }
+        return userAccountJPARepository.findByMobileOrIdCardNumber(request.getMobileNumber(), request.getIdCardNumber()).orElseThrow(() -> new EntityNotFoundException("user Account does not exist"));
     }
 
 }

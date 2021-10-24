@@ -12,8 +12,7 @@ import java.util.Optional;
 public interface UserAccountJPARepository extends JpaRepository<UserAccount, Long> {
     boolean existsByMobileOrIdCardNumber(String mobile, String idCardNumber);
 
-    Optional<UserAccount> findByMobile(String mobile);
-    Optional<UserAccount> findByIdCardNumber(String idCardNumber);
+    Optional<UserAccount> findByMobileOrIdCardNumber(String mobile, String idCardNumber);
 
     @Query(value = "select u from UserAccount u where u.totalPointAmount > 0 ")
     List<UserAccount> findAllUnclaimedAccounts();
